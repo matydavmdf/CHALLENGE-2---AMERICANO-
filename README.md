@@ -1,1 +1,1 @@
-In this project, I decided to completely rethink and rebuild YOUBIDI, giving this music player app a brand-new identity tailored for the iOS 26 design language. The goal was simple: create a smoother, cleaner and smarter experience by focusing only on what truly matters.
+In this project, I decided to completely rethink and rebuild YUBIDI, giving this music player app a brand-new identity tailored for the iOS 26 design language. The goal was simple: create a smoother, cleaner and smarter experience by focusing only on what truly matters.
