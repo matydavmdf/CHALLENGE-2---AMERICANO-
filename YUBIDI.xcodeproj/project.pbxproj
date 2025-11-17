@@ -18,7 +18,7 @@
 
 /* Begin PBXFileReference section */
 		A8B3D6AF2EC338B8004EB261 /* YUBIDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YUBIDI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A8DA29D42ECB4BAB002AC512 /* YUBIDIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YUBIDIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8DA29D42ECB4BAB002AC512 /* YUBIDIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = YUBIDIUITests.xctest; path = "/Users/matildedavide/Desktop/CHALLENGE 2 - AMERICANO!/build/Debug-iphoneos/YUBIDIUITests-Runner.app/PlugIns/YUBIDIUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,7 +52,6 @@
 			children = (
 				A873EC572EC1FC900081F7C0 /* YUBIDI */,
 				A8B3D6AF2EC338B8004EB261 /* YUBIDI.app */,
-				A8DA29D42ECB4BAB002AC512 /* YUBIDIUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};

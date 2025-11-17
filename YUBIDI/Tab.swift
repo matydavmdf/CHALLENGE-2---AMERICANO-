@@ -47,31 +47,39 @@ struct MainTabView: View {
 
 struct AccessoryView: View {
     @Environment(\.colorScheme) var colorScheme
-    
+    @Bindable var player = AudioPlayer.shared
+
+
     var body: some View {
         HStack {
             Image("Certe notti cover")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 40, height: 32)
-              
-                           
-            VStack (alignment: .leading) {
+            
+            VStack(alignment: .leading) {
                 Text("Certe Notti")
                     .font(.headline)
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                
+                    .foregroundColor(.black)
             }
+            
             Spacer()
-            Image(systemName: "play.fill")
-                .foregroundColor(.indigo)
-            Image(systemName: "forward.end.alt")
-                .foregroundColor(colorScheme == .dark ? .white : .black)
+            
+            Button {
+                player.togglePlayPause()
+            } label: {
+                Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
+                    .foregroundColor(.indigo)
             }
-            .padding()
+            
+            Image(systemName: "forward.end.alt")
+                .foregroundColor(.black)
         }
+        .padding()
     }
-        
+}
+
+
 #Preview {
     MainTabView()
 }

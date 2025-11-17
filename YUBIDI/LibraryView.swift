@@ -5,14 +5,12 @@
 //  Created by Matilde Davide on 13/11/25.
 //
 
-
 import SwiftUI
 
 struct LibraryViewPlus: View {
     @State private var currentLayout: String = "List"
     @State private var showingAddSheet = false
 
-    //  Qui vengono salvate le playlist create dall’utente
     @State private var playlists: [Playlist] = []
 
     struct Playlist: Identifiable {
@@ -21,9 +19,9 @@ struct LibraryViewPlus: View {
         var image: UIImage?
     }
 
-    private let items: [(String, String)] = [
-        ("Favourite", "heart"),
-        ("Recents", "clock")
+    private let items: [(String, String, String)] = [
+        ("Favourite", "heart", "favourite_cover"),
+        ("Recents", "clock", "recents_cover")
     ]
 
     private let columns: [GridItem] = [
@@ -40,7 +38,6 @@ struct LibraryViewPlus: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
 
-                    // Pulsante +
                     Button(action: {
                         showingAddSheet = true
                     }) {
@@ -48,7 +45,6 @@ struct LibraryViewPlus: View {
                             .foregroundStyle(.indigo)
                     }
 
-                    // Menu Layout
                     Menu {
                         Button {
                             currentLayout = "List"
@@ -68,8 +64,6 @@ struct LibraryViewPlus: View {
                 }
             }
             .sheet(isPresented: $showingAddSheet) {
-
-                // QUANDO SALVI, AGGIUNGE LA PLAYLIST
                 NewPlaylistView { name, image in
                     playlists.append(Playlist(name: name, image: image))
                 }
@@ -79,34 +73,40 @@ struct LibraryViewPlus: View {
 
     // MARK: - CONTENT VIEW
     private var contentView: some View {
-
         Group {
+            // ---------- GRID VIEW ----------
             if currentLayout == "Grid" {
-
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 30) {
 
-                        // Sezione predefinita
+                       
                         ForEach(items.indices, id: \.self) { index in
                             let item = items[index]
 
                             NavigationLink(destination: Text(item.0)) {
-                                VStack(spacing: 10) {
-                                    Image(systemName: item.1)
-                                        .font(.system(size: 45))
-                                        .frame(width: 70, height: 70)
+                                ZStack(alignment: .bottomTrailing) {
 
+                                    Image(item.2)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 170, height: 170)
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+
+                                
                                     Text(item.0)
-                                        .font(.headline)
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.black)
+                                        .padding(8)
+                                        
+                                    
+                                       
                                 }
-                                .padding()
                                 .frame(width: 170, height: 170)
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
                             }
                         }
 
-                        // Griglia playlist create
+                       
                         ForEach(playlists) { playlist in
                             NavigationLink(destination: Text(playlist.name)) {
 
@@ -115,21 +115,18 @@ struct LibraryViewPlus: View {
                                         Image(uiImage: img)
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: 70, height: 70)
+                                            .frame(width: 170, height: 170)
                                             .clipShape(RoundedRectangle(cornerRadius: 12))
                                     } else {
                                         RoundedRectangle(cornerRadius: 12)
                                             .fill(.gray.opacity(0.3))
-                                            .frame(width: 70, height: 70)
+                                            .frame(width: 170, height: 170)
                                     }
 
                                     Text(playlist.name)
                                         .font(.headline)
                                 }
-                                .padding()
-                                .frame(width: 170, height: 170)
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .frame(width: 170, height: 200)
                             }
                         }
                     }
@@ -138,11 +135,11 @@ struct LibraryViewPlus: View {
                     .padding(.bottom, 50)
                 }
 
+            // ---------- LIST VIEW ----------
             } else {
-
                 List {
 
-                    // Sezione predefinita
+                    
                     ForEach(items.indices, id: \.self) { index in
                         let item = items[index]
 
@@ -150,12 +147,13 @@ struct LibraryViewPlus: View {
                             HStack {
                                 Image(systemName: item.1)
                                     .foregroundStyle(.indigo)
+
                                 Text(item.0)
                             }
                         }
                     }
 
-                    // Lista playlist create
+                   
                     ForEach(playlists) { playlist in
                         NavigationLink(destination: Text(playlist.name)) {
                             HStack {
@@ -185,4 +183,3 @@ struct LibraryViewPlus: View {
 #Preview {
     LibraryViewPlus()
 }
-
